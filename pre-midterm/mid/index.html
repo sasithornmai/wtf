@@ -1,0 +1,236 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Midterm</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mitr&display=swap" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+        integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.min.js"
+        integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/"
+        crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            font-family: 'Mitr', sans-serif;
+        }
+
+        .box {
+            background-color: antiquewhite;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="box container">
+        <div class="col-6">
+            <form id='form'>
+                <div class="row mb-3">
+                    <h3>คำถาม</h3>
+                    <input type="text" class="form-control" id="q" aria-describedby="">
+                </div>
+
+                <div class="mb-3">
+                    <div class="row mb-3">
+                        <div class="form-check col-1">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="ca">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                A)
+                            </label>
+
+                        </div>
+                        <div class="col"><input type="text" class="form-control" id="a" aria-describedby=""></div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="form-check col-1">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="cb">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                B)
+                            </label>
+
+                        </div>
+                        <div class="col"><input type="text" class="form-control" id="b" aria-describedby=""></div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="form-check col-1">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="cc">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                C)
+
+                            </label>
+
+                        </div>
+                        <div class="col"><input type="text" class="form-control" id="c" aria-describedby=""></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ข้อที่</th>
+                    <th scope="col">คำถาม</th>
+                    <th scope="col">A</th>
+                    <th scope="col">B</th>
+                    <th scope="col">C</th>
+                    <th scope="col">คำตอบ</th>
+                </tr>
+            </thead>
+            <tbody id='tbody'>
+
+            </tbody>
+        </table>
+    </div>
+
+    </div>
+
+    <script>
+        var no = 1
+        let requestURL = 'questions.json';
+        let request = new XMLHttpRequest();
+
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+                dataReportStatus(JSON.parse(request.responseText));
+            }
+        };
+        request.open("GET", requestURL, true);
+        request.send();
+
+
+        function dataReportStatus(data) {
+
+            for (let i = 0; i < data.length; i++) {
+
+                console.log(data[i]);
+                var table = document.getElementById('tbody')
+                var slot = document.createElement('tr')
+
+                var tno = document.createElement('td')
+                var text = document.createTextNode(no)
+                tno.appendChild(text)
+                no = no + 1
+
+                var qt = document.createElement('td')
+                var text = document.createTextNode(data[i].question)
+                qt.appendChild(text)
+
+                var at = document.createElement('td')
+                var text = document.createTextNode(data[i].answers.a)
+                at.appendChild(text)
+
+                var bt = document.createElement('td')
+                var text = document.createTextNode(data[i].answers.b)
+                bt.appendChild(text)
+
+                var ct = document.createElement('td')
+                var text = document.createTextNode(data[i].answers.c)
+                ct.appendChild(text)
+
+                slot.appendChild(tno)
+                slot.appendChild(qt)
+                slot.appendChild(at)
+                slot.appendChild(bt)
+                slot.appendChild(ct)
+
+                var ch = document.createElement('td')
+                var text = document.createTextNode(data[i].answers.correct)
+                ch.appendChild(text)
+                slot.appendChild(ch)
+                table.appendChild(slot)
+            }
+
+        }
+
+
+        form = document.getElementById('form')
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            var q = document.getElementById('q').value
+            var a = document.getElementById('a').value
+            var b = document.getElementById('b').value
+            var c = document.getElementById('c').value
+            var ca = document.getElementById('ca').checked
+            var cb = document.getElementById('cb').checked
+            var cc = document.getElementById('cc').checked
+            // alert(q)
+
+            if (a == '' || b == '' || c == '') {
+                alert("fill all data!")
+            } else {
+                var table = document.getElementById('tbody')
+                var slot = document.createElement('tr')
+
+                var tno = document.createElement('td')
+                var text = document.createTextNode(no)
+                tno.appendChild(text)
+                no = no + 1
+
+
+                var qt = document.createElement('td')
+                var text = document.createTextNode(q)
+                qt.appendChild(text)
+
+                var at = document.createElement('td')
+                var text = document.createTextNode(a)
+                at.appendChild(text)
+
+                var bt = document.createElement('td')
+                var text = document.createTextNode(b)
+                bt.appendChild(text)
+
+                var ct = document.createElement('td')
+                var text = document.createTextNode(c)
+                ct.appendChild(text)
+
+                slot.appendChild(tno)
+                slot.appendChild(qt)
+                slot.appendChild(at)
+                slot.appendChild(bt)
+                slot.appendChild(ct)
+
+                var ch = document.createElement('td')
+                if (ca) {
+                    var chec = 'a'
+                }
+                if (cb) {
+                    var chec = 'b'
+                }
+                if (cc) {
+                    var chec = 'c'
+                }
+                var text = document.createTextNode(chec)
+                ch.appendChild(text)
+                slot.appendChild(ch)
+                table.appendChild(slot)
+
+
+            }
+
+
+
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+[
+    {
+        "question": "Britain and France declared war on Germany on 3 September 1939 after the German invasion of which country?",
+        "answers": {
+            "a": "Denmark",
+            "b": "Poland",
+            "c": "Czechoslovakia",
+            "correct": "b"
+        }
+    },
+    {
+        "question": "When did Germany invade the USSR?",
+        "answers": {
+            "a": "May 1940",
+            "b": "May 1940",
+            "c": "June 1941",
+            "correct": "c"
+        }
+    },      
+    {
+        "question": "Who was the first Chancellor of the Federal Republic of Germany (West Germany)?",
+        "answers": {
+            "a": "Wilhelm Pieck",
+            "b": "Konrad Adenauer",
+            "c": "Willy Brandt",
+            "correct": "b"
+        }
+    }
+]

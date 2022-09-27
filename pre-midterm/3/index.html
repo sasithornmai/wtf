@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        th {
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p>ลงทะเบียนเข้าร่วมงาน</p>
+    </div>
+    <div style="display:flex; gap:10px">
+        <input type="text" placeholder="รหัสนักศึกษา" id="num"/>
+        <input type="text" placeholder="ชื่อ" id="fname"/>
+        <input type="text" placeholder="นามสกุล" id="lname"/>
+        <button onclick="addData()">ลงทะเบียน</button>
+    </div>
+    <div style="margin-top:10px;">
+        <table id="tb">
+            <tr>
+                <th>ลำดับที่</th>
+                <th>รหัสนักศึกษา</th>
+                <th>ชื่อ</th>
+                <th>นามสกุล</th>
+            </tr>
+        </table>
+    </div>
+    <script>
+        i = 1;
+        function addData() {
+            let num = document.getElementById('num').value;
+            let fname = document.getElementById('fname').value;
+            let lname = document.getElementById('lname').value;
+            let tr = document.createElement('tr');
+            let td1 = document.createElement('td');
+            let td2 = document.createElement('td');
+            let td3 = document.createElement('td');
+            let td4 = document.createElement('td');
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+            let textOrder = document.createTextNode(i);
+            i++;
+            let textNum = document.createTextNode(num);
+            let textFname = document.createTextNode(fname);
+            let textLname = document.createTextNode(lname);
+            td1.appendChild(textOrder);
+            td2.appendChild(textNum);
+            td3.appendChild(textFname);
+            td4.appendChild(textLname);
+            let tb = document.getElementById('tb');
+            tb.appendChild(tr);
+        }
+    </script>
+</body>
+</html>

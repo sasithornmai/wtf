@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p {
+            margin: 0px;
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div style="display:flex; margin-bottom: 5px;">
+        <p id="fname">ชื่อ :</p>
+        <input type="text"/>
+    </div>
+    <div style="display:flex; margin-bottom: 5px;">
+        <p id="lname">นามสกุล :</p>
+        <input type="text"/>
+    </div>
+    <div style="display:flex; margin-bottom: 5px;">
+        <p>ประเทศ :</p>
+        <select name="country">
+            <option value="0">เลือกประเทศ</option>
+            <option value="1">ไทย</option>
+            <option value="2">สิงคโปร์</option>
+            <option value="3">ญี่ปุ่น</option>
+        </select>
+    </div>
+    <button onclick="change()">เปลี่ยนภาษา</button>
+    <script>
+        let i = -1;
+        function change() {
+            i *= -1;
+            if (i == 1) {
+                document.getElementById('fname').innerHTML = 'name :';
+                document.getElementById('lname').innerHTML = 'lastname :';
+        }
+    }
+    </script>
+</body>
+</html>

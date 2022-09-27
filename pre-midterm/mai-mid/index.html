@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>คำถาม</h1>
+    <form>
+        <input type="text" placeholder="คำถาม" id="que"/>
+    </form>
+    <div>
+        <div style="display:flex; margin-top: 10px; gap:10px;">
+            <input type="radio" name="ans" value="A" id="a"/>
+            <p>A</p>
+            <input type="text" id="qa"/>
+        </div>
+        <div style="display:flex; margin-top: 10px; gap:10px;">
+            <input type="radio" name="ans" value="B" id="b"/>
+            <p>B</p>
+            <input type="text" id="qb"/>
+        </div>
+        <div style="display:flex; margin-top: 10px; gap:10px;">
+            <input type="radio" name="ans" value="C" id="c"/>
+            <p>C</p>
+            <input type="text" id="qc"/>
+        </div>
+        <button style="margin-top: 10px;" onclick="addData()">Submit</button>
+        <div>
+            <table id="tb">
+                <tr>
+                    <th>
+                        ข้อที่
+                    </th>
+                    <th>
+                        คำถาม
+                    </th>
+                    <th>
+                        A
+                    </th>
+                    <th>
+                        B
+                    </th>
+                    <th>
+                        C
+                    </th>
+                    <th>
+                        คำตอบ
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        let requestURL = 'que.json';
+        let request = new XMLHttpRequest();
+
+        request.onreadystatechange = function () {
+            if (request.readyState == 4 && request.status == 200) {
+                wtf(JSON.parse(request.responseText));
+            }
+        };
+        request.open("GET", requestURL, true);
+        request.send();
+        
+        function wtf(data) {
+            for (let i = 0; i < data.length; i++) {
+            let tr = document.createElement('tr');
+            let td1 = document.createElement('td');
+            let text1 = document.createTextNode(i+1);
+            td1.appendChild(text1);
+            let td2 = document.createElement('td');
+            let text2 = document.createTextNode(data[i].question);
+            td2.appendChild(text2);
+            let td3 = document.createElement('td');
+            let text3 = document.createTextNode(data[i].answers.a);
+            td3.appendChild(text3);
+            let td4 = document.createElement('td');
+            let text4 = document.createTextNode(data[i].answers.b);
+            td4.appendChild(text4);
+            let td5 = document.createElement('td');
+            let text5 = document.createTextNode(data[i].answers.c);
+            td5.appendChild(text5);
+            let td6 = document.createElement('td');
+            let text6 = document.createTextNode(data[i].answers.correct);
+            td6.appendChild(text6);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+            tr.appendChild(td5);
+            tr.appendChild(td6);
+            document.getElementById("tb").appendChild(tr);
+        }
+        }
+        let m = 3;
+        function addData() {
+            let checkA = document.getElementById("a").checked;
+            let checkB = document.getElementById("b").checked;
+            let checkC = document.getElementById("c").checked;
+
+            let que = document.getElementById("que").value;
+            let a = document.getElementById("qa").value;
+            let b = document.getElementById("qb").value;
+            let c = document.getElementById("qc").value;
+
+            console.log(que, a, b, c);
+            let tr = document.createElement('tr');
+            let td1 = document.createElement('td');
+            let text1 = document.createTextNode(m+1);
+            m++;
+            td1.appendChild(text1);
+            let td2 = document.createElement('td');
+            let text2 = document.createTextNode(que);
+            td2.appendChild(text2);
+            let td3 = document.createElement('td');
+            let text3 = document.createTextNode(a);
+            td3.appendChild(text3);
+            let td4 = document.createElement('td');
+            let text4 = document.createTextNode(b);
+            td4.appendChild(text4);
+            let td5 = document.createElement('td');
+            let text5 = document.createTextNode(c);
+            td5.appendChild(text5);
+
+            let td6 = document.createElement('td');
+            if (checkA) {
+                let text6 = document.createTextNode("a");
+                td6.appendChild(text6);
+            }
+            if (checkB) {
+                let text6 = document.createTextNode("b");
+                td6.appendChild(text6);
+            }
+            if (checkC) {
+                let text6 = document.createTextNode("c");
+                td6.appendChild(text6);
+            }
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tr.appendChild(td3);
+            tr.appendChild(td4);
+            tr.appendChild(td5);
+            tr.appendChild(td6);
+            document.getElementById("tb").appendChild(tr);
+        }
+    </script>
+</body>
+</html>
